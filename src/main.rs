@@ -47,11 +47,15 @@ fn parse_file(fileno: u16, path: &Path, debug_items: bool) -> Result<usize> {
     let mut n = 0;
     {
         let mut out = BufWriter::new(stdout());
-        let mut stripped_line = Colstring::new();
+        let mut tmp = Colstring::new();
+        let mut tmp1 = Colstring::new();
+        let mut tmp2 = Colstring::new();
         loop {
             if let Some(item) = read_item(fileno,
                                           &mut ls,
-                                          &mut stripped_line)? {
+                                          &mut tmp,
+                                          &mut tmp1,
+                                          &mut tmp2)? {
                 if debug_items {
                     // With location information stripped:
                     out.write(format!(

@@ -474,22 +474,25 @@ fn copy_line_stripping_comments(fileno: u16,
 }
 
 // Returns None only on EOF.
-pub fn read_item<'t>(fileno: u16,
-                     source: &mut Peekable<Enumerate<Lines<BufReader<File>>>>,
-                     stripped_line: &'t mut Colstring)
-             -> Result<Option<Item>> {
+pub fn read_item<'t, 't1, 't2>(
+    fileno: u16,
+    source: &mut Peekable<Enumerate<Lines<BufReader<File>>>>,
+    tmp: &'t mut Colstring,
+    // workaround for pre-Polonius NLL limitation:
+    tmp1: &'t1 mut Colstring,
+    tmp2: &'t2 mut Colstring)
+    -> Result<Option<Item>> {
     if let Some((linenum, line_result)) = source.next() {
         copy_line_stripping_comments(fileno, linenum, &line_result?,
-                                     stripped_line)?;
-        let commentless_line = stripped_line.colstr();
+                                     tmp)?;
+        let commentless_line = tmp.colstr();
         if commentless_line.is_white() {
             let mut n = 1;
             // while source.peek().is_some_and(str_is_white)
             //   is nightly only.
             while peeking(source, |linenum, line| {
-                copy_line_stripping_comments(fileno, linenum, line,
-                                             stripped_line)?;
-                Ok(stripped_line.colstr().is_white())
+                copy_line_stripping_comments(fileno, linenum, line, tmp1)?;
+                Ok(tmp1.colstr().is_white())
             })? {
                 source.next().unwrap().1?;
                 n += 1;
@@ -523,9 +526,8 @@ pub fn read_item<'t>(fileno: u16,
                 let mut level = n;
                 let mut v = Vec::new();
                 while peeking(source, |linenum, line| {
-                    copy_line_stripping_comments(fileno, linenum, line,
-                                                 stripped_line)?;
-                    let commentless_line = stripped_line.colstr();
+                    copy_line_stripping_comments(fileno, linenum, line, tmp2)?;
+                    let commentless_line = tmp2.colstr();
                     let (n, rest) = commentless_line.skip_any('[');
                     if n > 0 {
                         level += n;
