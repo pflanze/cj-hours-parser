@@ -1,0 +1,6 @@
+Error: can't process file "test/err3.txt"
+
+Caused by:
+    0: can't parse line 3, "set foo<> = 2"
+    1: can't parse as a processing instruction: "set foo<> = 2"
+    2: column 7: expecting whitespace or '=' after the key "foo"

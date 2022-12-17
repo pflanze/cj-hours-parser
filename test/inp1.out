@@ -1,0 +1,13 @@
+item=SingleLineComment(" this is a comment")
+    =SingleLineComment(" this is a comment")
+item=MultiLineComment(["this is a multiline", "  comment"])
+    =MultiLineComment(["this is a multiline", "  comment"])
+item=Other([Minus, Time(NT(12:44:00)), Rest("test  some time")])
+    =Other([Subitem(L(0, 6, 0), Minus), Subitem(L(0, 6, 1), Time(NT(12:44:00))), Subitem(L(0, 6, 42), Rest("test  some time"))])
+item=Empty(2)
+    =Empty(2)
+item=Other([Time(NT(13:27:00)), Minus, Time(NT(18:44:00)), Rest("test-again -->")])
+    =Other([Subitem(L(0, 9, 0), Time(NT(13:27:00))), Subitem(L(0, 9, 5), Minus), Subitem(L(0, 9, 6), Time(NT(18:44:00))), Subitem(L(0, 9, 12), Rest("test-again -->"))])
+item=Empty(1)
+    =Empty(1)
+Hello, world!

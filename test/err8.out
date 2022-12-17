@@ -1,0 +1,6 @@
+item=Other([Time(NT(03:27:00)), Minus, Time(NTZ(10:44:10, Zone("GMT"))), Rest("<-- --> test-again")])
+    =Other([Subitem(L(0, 1, 0), Time(NT(03:27:00))), Subitem(L(0, 1, 5), Minus), Subitem(L(0, 1, 6), Time(NTZ(10:44:10, Zone("GMT")))), Subitem(L(0, 1, 18), Rest("<-- --> test-again"))])
+item=Other([Time(NT(03:27:00)), Minus, Time(NTZ(10:44:10, Zone("GMT"))), Rest(" test-again")])
+    =Other([Subitem(L(0, 2, 0), Time(NT(03:27:00))), Subitem(L(0, 2, 5), Minus), Subitem(L(0, 2, 6), Time(NTZ(10:44:10, Zone("GMT")))), Subitem(L(0, 2, 26), Rest(" test-again"))])
+item=Other([Time(NT(03:27:00)), Minus, Time(NTZ(10:44:10, Zone("GMT"))), Rest(" test-again")])
+    =Other([Subitem(L(0, 3, 0), Time(NT(03:27:00))), Subitem(L(0, 3, 5), Minus), Subitem(L(0, 3, 6), Time(NTZ(10:44:10, Zone("GMT")))), Subitem(L(0, 3, 25), Rest(" test-again"))])

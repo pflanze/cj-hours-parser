@@ -1,0 +1,6 @@
+Error: can't process file "test/err2.txt"
+
+Caused by:
+    0: can't parse line 2, "foo 2"
+    1: can't parse as a processing instruction: "foo 2"
+    2: does not start with `\w+\s*=` nor `set \w+ `

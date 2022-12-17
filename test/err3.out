@@ -1,0 +1,4 @@
+item=ProcessingInstruction { key: "foo", value: "1" }
+    =ProcessingInstruction { key: "foo", value: "1" }
+item=ProcessingInstruction { key: "foo", value: "2" }
+    =ProcessingInstruction { key: "foo", value: "2" }

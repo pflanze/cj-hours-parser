@@ -1,0 +1,6 @@
+Error: can't process file "test/err5.txt"
+
+Caused by:
+    0: can't parse line 1, "03:27-6:44:1 test-again"
+    1: column 6: can't parse baretime from: "6:44:1 test-agai"...
+    2: column 11: not enough digits, min required 2

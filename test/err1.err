@@ -1,0 +1,4 @@
+Error: can't process file "test/err1.txt"
+
+Caused by:
+    line 14: garbage after closing delimiters: " garble"

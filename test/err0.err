@@ -1,0 +1,4 @@
+Error: can't process file "test/err0.txt"
+
+Caused by:
+    line 11: garbage after opening delimiters: "and yet more]"

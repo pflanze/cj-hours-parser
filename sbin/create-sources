@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -euo pipefail
+IFS=
+
+{
+    {
+        echo target/debug/cj-hours-parser:
+        git ls-files src/
+    } | tr '\n' ' '
+    echo
+} > .sources
