@@ -483,6 +483,7 @@ pub fn read_item<'t>(fileno: u16,
                                      stripped_line)?;
         let commentless_line = stripped_line.colstr();
         if commentless_line.is_white() {
+            drop(commentless_line);
             let mut n = 1;
             // while source.peek().is_some_and(str_is_white)
             //   is nightly only.
@@ -522,6 +523,9 @@ pub fn read_item<'t>(fileno: u16,
                 check(&rest, '[', linenum)?;
                 let mut level = n;
                 let mut v = Vec::new();
+                drop(commentless_line);
+                drop(rest);
+                drop(r);
                 while peeking(source, |linenum, line| {
                     copy_line_stripping_comments(fileno, linenum, line,
                                                  stripped_line)?;
