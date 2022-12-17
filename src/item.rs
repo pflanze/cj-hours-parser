@@ -512,13 +512,14 @@ pub fn read_item<'t>(fileno: u16,
                 // inside/outside another one (i.e. '[[' and ']]' can
                 // be stacked); no other text is allowed on the same
                 // line after those characters.
-                let check = |rest: &Colstr<'t>, c, linenum| {
+                fn check<'t>(rest: &Colstr<'t>, c: char, linenum: usize)
+                             ->Result<()> {
                     if ! str_is_white(rest.str()) {
                         bail!("line {} column {}: garbage after '{}': {:?}",
                               linenum+1, rest.column(), c, rest.str());
                     }
                     Ok(())
-                };
+                }
                 let (n, rest) = commentless_line.skip_any('[');
                 check(&rest, '[', linenum)?;
                 let mut level = n;
