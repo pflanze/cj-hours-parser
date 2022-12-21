@@ -1,0 +1,6 @@
+Error: can't process file "test/err15.txt"
+
+Caused by:
+    0: can't parse line 26, " Mon_31_Oct_200350_CET_2022-{Mon 31 Oct 21:18:04 GMT 2022}infrastructure"
+    1: can't parse as a processing instruction: " Mon_31_Oct_200350_CET_2022-{Mon 31 Oct 21:18:04 GMT 2022}infrastructure"
+    2: does not start with `\w+\s*=` nor `set \w+ `

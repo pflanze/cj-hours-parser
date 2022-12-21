@@ -1,0 +1,4 @@
+item=SingleLineComment(Owned(" this is a comment"))
+    =SingleLineComment(Owned(" this is a comment"))
+item=MultiLineComment([Owned("this is a multiline"), Inline("  comment")])
+    =MultiLineComment([Owned("this is a multiline"), Inline("  comment")])

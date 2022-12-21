@@ -1,0 +1,91 @@
+#!/usr/bin/env perl
+
+my $copyright= <<'COPYRIGHT';
+# Copyright 2022 by Christian Jaeger <ch@christianjaeger.ch>
+# Published under the same terms as perl itself
+COPYRIGHT
+
+use strict;
+use utf8;
+use warnings;
+use warnings FATAL => 'uninitialized';
+use experimental 'signatures';
+
+my ($email_full)= $copyright=~ / by ([^\n]*)/s;
+
+my ($mydir, $myname);
+BEGIN {
+    $0=~ /(.*?)([^\/]+)\z/s or die "?";
+    ($mydir, $myname)=($1,$2);
+}
+
+use Getopt::Long;
+#use Chj::ruse;
+#use Chj::Backtrace; 
+use FP::Show; use FP::Repl; use FP::Repl::Trap; #
+
+sub usage {
+    print STDERR map{"$_\n"} @_ if @_;
+    print "$myname ..
+
+  ($email_full)
+";
+exit (@_ ? 1 : 0);
+}
+
+our $verbose=0;
+#our $opt_dry;
+GetOptions("verbose"=> \$verbose,
+	   "help"=> sub{usage},
+	   #"dry-run"=> \$opt_dry,
+	   ) or exit 1;
+usage unless @ARGV;
+
+use Chj::xopen qw(xopen_read);
+use FP::Lazy;
+use FP::List ":all";
+use FP::Stream qw(string_to_stream);
+use FP::Weak qw(Keep);
+
+sub enumerate($i, $stream) {
+    lazy {
+        if (my ($c, $r)= $stream->perhaps_first_and_rest) {
+            cons([$i, $c], enumerate($i+1, $r))
+        } else {
+            null
+        }
+    }
+}
+
+
+sub parse_line($lineno, $line) {
+    #warn "parse_line";
+    my $s = enumerate(0, string_to_list($line));
+    my @items;
+    while (my ($i_c, $r) = $s->perhaps_first_and_rest) {
+        my ($i, $c)= @$i_c;
+        if ($c =~ /\w/) {
+            my $word = $s->take_while(sub ($i_c) { $i_c->[1] =~ /\w/});
+            $s = $s->drop($word->length);
+            my $w = $word->map(sub($c_i){ $c_i->[1]})->string;
+            push @items, [[$lineno, $i], $w];
+        } else {
+            $s = $r;
+        }
+        #warn "s len = ".Keep($s)->length;
+    }
+    \@items
+}
+
+sub parse_file($path) {
+    my $in = xopen_read $path;
+    $in->xbinmode(":utf8");
+    my $lineno = 1;
+    while (defined (my $line= $in->xreadline)) {
+        my $p = parse_line($lineno, $line);
+        #repl;
+        $lineno++;
+    }
+}
+
+parse_file $_ for @ARGV;

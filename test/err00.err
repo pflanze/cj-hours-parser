@@ -1,0 +1,4 @@
+Error: can't process file "test/err00.txt"
+
+Caused by:
+    line 11 column 1: garbage after '[': "and yet more]"

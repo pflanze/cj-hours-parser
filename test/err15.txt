@@ -1,0 +1,32 @@
+# this is a comment
+[
+this is a multiline
+  comment
+]
+-12:44:21 test  some time
+-17:16:31UTC time for some stuff
+-17:16UTC time for some stuff
+
+[[
+some more commenting
+]] 
+#[and yet more]
+[
+blabla
+]
+TZ=Zurich
+03:27-6:44:01 test-again
+ TZ           = london
+
+
+  set 	 hello = 123
+
+  set 	 hello2 123too
+
+ Mon_31_Oct_200350_CET_2022-{Mon 31 Oct 21:18:04 GMT 2022}infrastructure
+-23:01 project-foo
+03:27-10:44:10GMT<!--foo--> test-again
+-{Wed 14 Dec 23:42:51 CET 2022}something
+-{Sun Oct 30 15:43:04 CET 2022}aufstellen
+-16:39
+03:27-10:44:10GMT<foo> test-again

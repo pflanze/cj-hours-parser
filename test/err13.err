@@ -1,0 +1,7 @@
+Error: can't process file "test/err13.txt"
+
+Caused by:
+    0: can't parse line 2, " ["
+    1: can't parse as a processing instruction: " ["
+    2: column 1: expecting an identifier
+    3: does not start with an ascii alphabetic character

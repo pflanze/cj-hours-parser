@@ -1,0 +1,4 @@
+Error: can't process file "test/err04.txt"
+
+Caused by:
+    premature EOF in a multi-line comment started on line 2, missing 1 ']'

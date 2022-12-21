@@ -1,0 +1,6 @@
+Error: can't process file "test/err06.txt"
+
+Caused by:
+    0: can't parse line 1, "03:27-6:4:01 test-again"
+    1: column 6: can't parse baretime from: "6:4:01 test-agai"...
+    2: column 8: not enough digits, need exactly 2

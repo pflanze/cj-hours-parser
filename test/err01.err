@@ -1,0 +1,4 @@
+Error: can't process file "test/err01.txt"
+
+Caused by:
+    line 14 column 1: garbage after ']': " garble"

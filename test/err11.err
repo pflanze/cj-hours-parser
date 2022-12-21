@@ -1,0 +1,6 @@
+Error: can't process file "test/err11.txt"
+
+Caused by:
+    0: can't parse line 1, "-12:4"
+    1: column 1: can't parse baretime from: "12:4"
+    2: column 39: not enough digits, need exactly 2

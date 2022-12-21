@@ -1,1 +1,4 @@
 /target/
+/ok*
+.gdb_history
+/.sources
