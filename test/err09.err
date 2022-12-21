@@ -1,0 +1,4 @@
+Error: can't process file "test/err09.txt"
+
+Caused by:
+    line 1, column 17: missing '-->' after '<!--'

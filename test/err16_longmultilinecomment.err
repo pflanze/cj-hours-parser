@@ -1,0 +1,4 @@
+Error: can't process file "test/err16_longmultilinecomment.txt"
+
+Caused by:
+    line 203: exceeding the maximum number of lines for a multi-line comment (200)

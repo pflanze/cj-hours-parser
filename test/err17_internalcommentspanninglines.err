@@ -1,0 +1,4 @@
+Error: can't process file "test/err17_internalcommentspanninglines.txt"
+
+Caused by:
+    line 2, column 3: missing '-->' after '<!--'

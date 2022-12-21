@@ -1,0 +1,7 @@
+Error: can't process file "test/err14.txt"
+
+Caused by:
+    0: can't parse line 6, " -12:44:21 test  some time"
+    1: can't parse as a processing instruction: " -12:44:21 test  some time"
+    2: column 1: expecting an identifier
+    3: does not start with an ascii alphabetic character

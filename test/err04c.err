@@ -1,0 +1,4 @@
+Error: can't process file "test/err04c.txt"
+
+Caused by:
+    line 2 column 0: unexpected ']' (missing a preceding line with opening '[')
