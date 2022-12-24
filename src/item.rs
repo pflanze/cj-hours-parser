@@ -1,6 +1,7 @@
 pub mod colstr;
 mod char_util;
 mod str_util;
+pub mod tz;
 
 // XX: make Colstr private, offer trait to import instead!
 use colstr::{FileLine, Location, Colstring, Colstr};
@@ -10,18 +11,15 @@ use str_util::{str_is_white, str_skip_any, str_start_count, str_drop, };
 
 use anyhow::{Result, anyhow, bail, Context};
 // use chrono::Weekday;
-use chrono::naive::{NaiveTime, // NaiveDate, NaiveDateTime
-};
+use chrono::naive::{NaiveTime}; // NaiveDate, NaiveDateTime
 use chrono::offset::FixedOffset;
-// use chrono::offset::TimeZone;
 use chrono::DateTime;
 use std::iter::{Enumerate, Peekable};
 use std::fs::File;
-use std::io::{Lines, BufReader, // BufRead, BufWriter, stdout, Write, 
-};
+use std::io::{Lines, BufReader}; // BufRead, BufWriter, stdout, Write, 
 // use std::option::NoneError;
 use kstring::KString;
-
+use tz::TzInfoByName;
 
 // // Handle ? on Option as a default error message:
 // impl std::error::Error for NoneError {
@@ -77,6 +75,7 @@ impl Item {
 
 
 #[derive(Debug)]
+// pub struct Zone(&TzInfo);
 pub struct Zone(KString);
 
 fn parse_time_zone<'s>(s: &Colstr<'s>) -> Result<(Zone, Colstr<'s>)> {
@@ -477,7 +476,8 @@ fn copy_line_stripping_comments(fileno: u16,
 const MULTILINECOMMENT_MAX_LEN : usize = 200;
 
 // Returns None only on EOF.
-pub fn read_item<'t>(fileno: u16,
+pub fn read_item<'t>(tzinfobyname: &TzInfoByName,
+                     fileno: u16,
                      source: &mut Peekable<Enumerate<Lines<BufReader<File>>>>,
                      tmp: &'t mut Colstring)
     -> Result<Option<Item>> {

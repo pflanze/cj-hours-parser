@@ -12,6 +12,12 @@ anyhow = "1.0"
 thiserror = "1.0.37"
 log = "0.4.8"
 env_logger = "0.8.4"
+
 chrono = "^0.4"
+
+# 0.6's (indirect) dependency phf_codegen can't be handled with cargo 1.46.0
+chrono-tz = "0.5.3"
+
 # kstring = "2.0.0" doesn't compile with rustc 1.48.0
 kstring = "1.0.6"
+

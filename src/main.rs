@@ -19,6 +19,7 @@ use std::io::{BufWriter, stdout, Write, BufReader, BufRead};
 // use chrono::offset::FixedOffset;
 // use chrono::offset::TimeZone;
 // use chrono::DateTime;
+use item::tz::TzInfoByName;
 
 
 #[derive(StructOpt, Debug)]
@@ -30,6 +31,10 @@ struct Opt {
     #[structopt(short, long, parse(from_occurrences))]
     debug: u8,
 
+    /// dump TZ database (TzInfoByName)
+    #[structopt(long)]
+    debug_tzinfo: bool,
+
     /// show stream of parsed structs
     #[structopt(long)]
     debug_items: bool,
@@ -40,7 +45,10 @@ struct Opt {
 }
 
 
-fn parse_file(fileno: u16, path: &Path, debug_items: bool) -> Result<usize> {
+fn parse_file(tzinfobyname: &TzInfoByName,
+              fileno: u16,
+              path: &Path,
+              debug_items: bool) -> Result<usize> {
     let file = File::open(path)?;
     let mut ls =
         BufReader::new(file).lines().enumerate().peekable();
@@ -49,7 +57,10 @@ fn parse_file(fileno: u16, path: &Path, debug_items: bool) -> Result<usize> {
         let mut out = BufWriter::new(stdout());
         let mut tmp = Colstring::new();
         loop {
-            if let Some(item) = read_item(fileno, &mut ls, &mut tmp)? {
+            if let Some(item) = read_item(tzinfobyname,
+                                          fileno,
+                                          &mut ls,
+                                          &mut tmp)? {
                 if debug_items {
                     // With location information stripped:
                     out.write(format!(
@@ -76,9 +87,14 @@ fn main() -> Result<()> {
     }
     env_logger::init();
 
+    let tzbn = TzInfoByName::new();
+    if opt.debug_tzinfo {
+        println!("{:#?}", tzbn);
+    }
+
     let mut fileno = 0;
     for path in opt.file_paths {
-        parse_file(fileno, &path, opt.debug_items).with_context(
+        parse_file(&tzbn, fileno, &path, opt.debug_items).with_context(
             || anyhow!("can't process file {:?}", path))?;
         fileno += 1;
     }
